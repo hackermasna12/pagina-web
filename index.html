@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="es">
+<head> 
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cumple de Paolo</title>
+    <style>
+        body {
+            font-family: 'Courier New', Courier, monospace;
+            margin: 0;
+            padding: 0;
+            color: #00ff41;
+            position: relative;
+            overflow-x: hidden;
+            background-color: #1a3a3a; /* Fondo verde oscuro en lugar de negro */
+        }
+        
+        /* Animación de hacker */
+        .matrix-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            overflow: hidden;
+        }
+        
+        .hacker-element {
+            position: absolute;
+            font-family: 'Courier New', Courier, monospace;
+            color: #00ff41;
+            text-shadow: 0 0 5px #00ff41;
+            opacity: 0.7;
+            font-size: 12px;
+            white-space: pre;
+        }
+        
+        .binary-row {
+            position: absolute;
+            left: 0;
+            width: 100%;
+            text-align: left;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 14px;
+            color: #00ff41;
+            opacity: 0.4;
+            white-space: nowrap;
+            overflow: hidden;
+            animation: slide-left 20s linear infinite;
+        }
+        
+        .code-block {
+            position: absolute;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 11px;
+            color: #00ff41;
+            background-color: rgba(0, 20, 0, 0.3);
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid rgba(0, 255, 65, 0.2);
+            box-shadow: 0 0 10px rgba(0, 255, 65, 0.1);
+            opacity: 0;
+            animation: fade-in-out 8s ease-in-out infinite;
+        }
+        
+        @keyframes slide-left {
+            from {
+                transform: translateX(100%);
+            }
+            to {
+                transform: translateX(-100%);
+            }
+        }
+        
+        @keyframes fade-in-out {
+            0% { opacity: 0; }
+            10% { opacity: 0.7; }
+            80% { opacity: 0.7; }
+            100% { opacity: 0; }
+        }
+        
+        /* Capa de fondo modificada - más clara */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(26, 58, 58, 0.7), rgba(26, 58, 58, 0.7)),
+                repeating-linear-gradient(0deg, transparent, transparent 1px, rgba(0, 255, 65, 0.08) 1px, rgba(0, 255, 65, 0.08) 2px);
+            background-size: 100% 2px;
+            z-index: -1;
+            pointer-events: none;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: rgba(42, 75, 65, 0.85); /* Fondo más claro para el contenedor */
+            box-shadow: 0 0 20px rgba(0, 255, 65, 0.3);
+            border: 1px solid rgba(0, 255, 65, 0.2);
+            position: relative;
+            z-index: 1;
+            border-radius: 12px; /* Bordes redondeados */
+        }
+        
+        #titulo-1 {
+            text-align: center;
+            color: #00ff41;
+            background-color: rgba(0,255,65,0.15);
+            padding: 15px;
+            border: 1px solid #00ff41;
+            text-shadow: 0 0 5px #00ff41;
+            animation: glow 1.5s ease-in-out infinite alternate;
+            border-radius: 8px;
+            margin-top: 10px;
+        }
+        
+        @keyframes glow {
+            from {
+                text-shadow: 0 0 5px #00ff41, 0 0 10px #00ff41;
+            }
+            to {
+                text-shadow: 0 0 10px #00ff41, 0 0 20px #00ff41, 0 0 30px #00ff41;
+            }
+        }
+        
+        .flork-image {
+            display: block;
+            max-width: 300px;
+            margin: 20px auto;
+            border: 5px solid #00ff41;
+            box-shadow: 0 0 20px rgba(0, 255, 65, 0.5);
+            border-radius: 20px; /* Bordes redondeados para la imagen */
+        }
+        
+        a {
+            color: #00ff41;
+            text-decoration: none;
+            transition: all 0.3s;
+            font-weight: bold;
+            background-color: rgba(0, 255, 65, 0.1);
+            padding: 3px 8px;
+            border-radius: 4px;
+        }
+        
+        a:hover {
+            text-decoration: underline;
+            text-shadow: 0 0 8px #00ff41;
+            letter-spacing: 1px;
+            background-color: rgba(0, 255, 65, 0.2);
+        }
+        
+        .hacker-text {
+            color: #00ff41;
+            font-family: 'Courier New', Courier, monospace;
+        }
+        
+        iframe {
+            max-width: 100%;
+            display: block;
+            margin: 20px auto;
+            border: 2px solid #00ff41;
+            border-radius: 10px; /* Bordes redondeados para el iframe */
+        }
+        
+        ul {
+            list-style-type: square;
+            color: #00ff41;
+            background-color: rgba(0, 40, 20, 0.4);
+            padding: 15px 15px 15px 40px;
+            border-radius: 8px;
+        }
+        
+        li {
+            margin-bottom: 8px;
+        }
+        
+        hr {
+            border-color: #00ff41;
+            box-shadow: 0 0 5px #00ff41;
+            opacity: 0.6;
+        }
+        
+  
+        p.hacker-text, h2.hacker-text, h3.hacker-text, h4.hacker-text, h5.hacker-text, h6.hacker-text {
+            background-color: rgba(0, 40, 20, 0.4);
+            padding: 10px;
+            border-radius: 6px;
+            margin: 10px 0;
+        }
+    </style>
+</head> 
+<body>
+
+    <div class="matrix-bg" id="matrix-container"></div>
+    
+    <div class="container">
+        <h1 id="titulo-1">CUMPLE DE PAOLO</h1>
+        
+        <img src="c:\Users\mathi\Desktop\imagen flork\flork.jpg" alt="Flork Birthday" class="flork-image">
+        
+        <b class="hacker-text">No es algo tan bueno, pero es lo que aprendí de la informática</b>
+        
+        <hr>
+        
+        <i class="hacker-text"><b>Posdata: Sé que no soy tan bueno en algunas cosas, pero lo hago de corazón</b></i>
+        
+        <h2 class="hacker-text">Un regalo de parte mía, espero que te guste</h2>
+        
+        <u class="hacker-text">se que no soy tu hermano pero poco a poco me gane tu confianza no es mucho pero quisiera que seas para mi, mi mejor amigo</u>
+        <hr>
+        
+        <h1 class="hacker-text">agradecimiento:</h1>
+        
+        <h3 class="hacker-text">
+            <strong>me acuerdo que aveces te hago renegar , bueno siempre te hago renegar</strong> 
+            <em>pero eso no quiere decir que te odio , eso seria mi ultima opcion pero naaa XD</em>
+        </h3>
+        
+        <h4 class="hacker-text">se que soy jodido o siempre hago bulla en la cuales te incomoda</h4>
+        <h5 class="hacker-text">soy conciente que no estudio porque me da flojera ,  porque simplemente no quiero </h5>
+        <h6 class="hacker-text">agradezco que me halla enseñado matematica , se que en esos inicios lo estrese porque soy muy lento para aprender, pero gracias a eso tengo la base en matematicas, aunque me olvide a cada rato pero almenos me recuerdo algo XDDD</h6>
+        <p class="hacker-text">se que debo madurar en todos los sentidos perooooooooo jamas se me ira la felicidad que tengo dentro de mi eso si XD</p>
+        <p class="hacker-text">se que no hablamos mucho por el simple hecho que hago bulla por ese sentido pido  clemencia y perdon :(</p>
+        <hr>
+        <hr>
+        <p class="hacker-text">por cierto estoy sonando muy cursi todo lo que digo pero es sincero </p>
+        <hr>
+        
+        <p>
+            <a href="https://www.youtube.com/watch?v=Og6Yu54arDE" target="_blank">clica aqui</a>
+            <h3 class="hacker-text">
+                <strong>clica aqui mientras lees tu regalo de cumple</strong> 
+            </h3>
+        </p>
+
+        <p class="hacker-text">
+            quisiera hacer una lista de cosas que posiblemente haria contigo que claro si deseas:
+            <ul>
+                <li>jugar brawl stars</li>
+                <li>jugar DB dokkan</li>    
+                <li>ver pelis de terror</li>
+                <li>hablas de futuros proycetos</li>
+            </ul>
+        </p>
+
+        <iframe 
+        width="600"
+         height="315" 
+         src="https://www.youtube.com/embed/lEvxZSGFNDs?si=v4k9Fge1sGN_V6D5" 
+        title="YouTube video player"
+         frameborder="0" 
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+        referrerpolicy="strict-origin-when-cross-origin"
+         allowfullscreen></iframe>
+        
+        <p class="hacker-text" style="color: #00ff41;">
+           <b>espero que la pases bien en un dia tan especial como yo  XD</b> 
+        </p>
+    </div>
+
+    <!-- Script para crear la animación de hacker -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const container = document.getElementById("matrix-container");
+            
+            // Textos de código para apariencia hacker
+            const codeSnippets = [
+                "function hackSystem() {\n  let access = false;\n  while(!access) {\n    access = tryPassword();\n  }\n  console.log('ACCESS GRANTED');\n  return downloadData();\n}",
+                "class SecurityBreacher {\n  constructor() {\n    this.methods = ['brute', 'dictionary'];\n  }\n  crack(target) {\n    console.log('BREACHING SECURITY...');\n    return this.methods[0](target);\n  }\n}",
+                "async function connectToServer() {\n  const endpoint = '192.168.1.1';\n  const ports = [22, 80, 443];\n  for (let port of ports) {\n    if (await tryPort(port)) {\n      return port;\n    }\n  }\n}",
+                "const bypassFirewall = () => {\n  const packets = generatePackets();\n  let success = false;\n  packets.forEach(p => {\n    if (sendPacket(p) === 200) {\n      success = true;\n    }\n  });\n  return success;\n}",
+                "/* REMOTE ACCESS TOOLKIT */\n\nfunction scanNetwork() {\n  const devices = [];\n  for (let i=1; i<255; i++) {\n    if (ping(`192.168.0.${i}`)) {\n      devices.push(`192.168.0.${i}`);\n    }\n  }\n  return devices;\n}"
+            ];
+            
+            // Crear filas de código binario deslizándose
+            for (let i = 0; i < 10; i++) {
+                const binaryRow = document.createElement("div");
+                binaryRow.className = "binary-row";
+                
+                // Posición vertical aleatoria
+                binaryRow.style.top = `${Math.floor(Math.random() * 100)}%`;
+                
+                // Velocidad aleatoria
+                const speed = 20 + Math.random() * 40;
+                binaryRow.style.animationDuration = `${speed}s`;
+                
+                // Generar secuencia binaria
+                let binaryText = "";
+                const length = 200;
+                for (let j = 0; j < length; j++) {
+                    binaryText += Math.random() > 0.5 ? "1" : "0";
+                    if (j % 8 === 7) binaryText += " ";
+                }
+                binaryRow.textContent = binaryText;
+                
+                container.appendChild(binaryRow);
+            }
+            
+            // Crear bloques de código que aparecen y desaparecen
+            function createRandomCodeBlock() {
+                const codeBlock = document.createElement("div");
+                codeBlock.className = "code-block";
+                
+                // Posición aleatoria
+                codeBlock.style.left = `${Math.floor(Math.random() * 70)}%`;
+                codeBlock.style.top = `${Math.floor(Math.random() * 70)}%`;
+                
+                // Texto de código aleatorio
+                const snippetIndex = Math.floor(Math.random() * codeSnippets.length);
+                codeBlock.textContent = codeSnippets[snippetIndex];
+                
+                // Tamaño aleatorio
+                const width = 150 + Math.floor(Math.random() * 200);
+                codeBlock.style.width = `${width}px`;
+                
+                // Retraso aleatorio para la animación
+                codeBlock.style.animationDelay = `${Math.random() * 5}s`;
+                
+                container.appendChild(codeBlock);
+                
+                // Eliminar después de un tiempo para no sobrecargar el DOM
+                setTimeout(() => {
+                    container.removeChild(codeBlock);
+                    createRandomCodeBlock();
+                }, 8000);
+            }
+            
+            // Crear algunos bloques de código iniciales
+            for (let i = 0; i < 5; i++) {
+                setTimeout(() => {
+                    createRandomCodeBlock();
+                }, i * 2000);
+            }
+            
+            // Agregar elementos de "hacker" ocasionalmente
+            function addHackerElement() {
+                const hackerTexts = [
+                    "ACCESS GRANTED", 
+                    "FIREWALL BYPASSED",
+                    "ENCRYPTION BROKEN", 
+                    "PASSWORD CRACKED",
+                    "SECURITY BREACH",
+                    "SYSTEM HACKED",
+                    "DOWNLOADING DATA...",
+                    "VULNERABILITY FOUND",
+                    "EXPLOITING SYSTEM",
+                    "ROOT ACCESS: OK"
+                ];
+                
+                const element = document.createElement("div");
+                element.className = "hacker-element";
+                
+                // Posición aleatoria
+                element.style.left = `${Math.floor(Math.random() * 80)}%`;
+                element.style.top = `${Math.floor(Math.random() * 80)}%`;
+                
+                // Texto aleatorio
+                const textIndex = Math.floor(Math.random() * hackerTexts.length);
+                element.textContent = hackerTexts[textIndex];
+                
+                container.appendChild(element);
+                
+                // Hacer que parpadee
+                let opacity = 0.7;
+                let direction = -1;
+                const blinkInterval = setInterval(() => {
+                    opacity += direction * 0.1;
+                    if (opacity <= 0.1 || opacity >= 0.7) {
+                        direction *= -1;
+                    }
+                    element.style.opacity = opacity;
+                }, 100);
+                
+                // Eliminar después de un tiempo
+                setTimeout(() => {
+                    clearInterval(blinkInterval);
+                    container.removeChild(element);
+                }, 4000);
+            }
+            
+            // Agregar elementos hacker cada pocos segundos
+            setInterval(addHackerElement, 3000);
+        });
+    </script>
+</body>
+</html>
